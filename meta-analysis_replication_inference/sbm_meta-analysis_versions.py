@@ -30,7 +30,7 @@ def scon_pool_init_meta(I_S, I_D, varying_system_parameters, constant_system_par
             #Unpack chosen pre-warming steady states.
             S0 = C_t0[0]
             D0 = C_t0[1]
-            
+            M0 = C_t0[2]
             #Solve for calculated parameter values to be plugged into equation solving function. 
         return k_S_ref, k_D_ref, k_M_ref #calculated system parameters
     elif SDE_system == 'SAWB':
