@@ -15,7 +15,7 @@ def scon_pool_init_meta(I_S, I_D, varying_system_parameters, constant_system_par
     '''
     SDE_system = upper(SDE_system)
     if SDE_system == 'SCON':
-        print('Checking to ensure expected number of varying system parameters (7), previously set system parameters (x), and pre-warming pool densities (3) for model SCON are present.')
+        print('Checking to ensure expected number of varying system parameters (7), previously set system parameters (1), and pre-warming pool densities (3) for model SCON are present.')
         if len(varying_system_parameters) == 7 and len(constant_system_parameters) == 1 and len(C_t0) == 3:
             #Unpack varying system parameters.
             Ea_S = varying_system_parameters[0]
@@ -38,7 +38,7 @@ def scon_pool_init_meta(I_S, I_D, varying_system_parameters, constant_system_par
         #Return calculated system parameter values
         return k_S_ref, k_D_ref, k_M_ref
     elif SDE_system == 'SAWB':
-        print('Checking to ensure expected number of varying system parameters (9), previously set system parameters (x), and pre-warming pool densities (4) for model SAWB are present.')
+        print('Checking to ensure expected number of varying system parameters (9), previously set system parameters (1), and pre-warming pool densities (4) for model SAWB are present.')
         if len(varying_system_parameters) == 9 and len(constant_system_parameters) == 1 and len(C_t0) == 4:
             #Unpack varying system parameters.
             V_ref = varying_system_parameters[0]
@@ -62,7 +62,7 @@ def scon_pool_init_meta(I_S, I_D, varying_system_parameters, constant_system_par
             r_M = (-u_Q_ref * (I_S + I_D) + M_0 * r_E * (1 - u_Q_ref)) / (M_0 * (u_Q_ref - 1))
             K_U_ref = -(D_0 * (r_M + r_E - u_Q_ref * V_U_ref)) / (r_M + r_E)
             K_ref = -((S_0 * (-I_S * r_E * r_L + u_Q_ref * I_S * r_E * r_L - a_MSC * u_Q_ref * I_D * r_L * r_M - I_S * r_L * r_M + u_Q_ref * I_S * r_L * r_M - a_MSC * u_Q_ref * I_S * r_L * r_M + u_Q_ref * I_D * r_E * V_ref + u_Q_ref * I_S * r_E * V_ref)) / (r_L * (-I_S * r_E + u_Q_ref * I_S * r_E - a_MSC * u_Q_ref * I_D * r_M - I_S * r_M + u_Q_ref * I_S * r_M - a_MSC * u_Q_ref * I_S * r_M)))
-        return r_E, r_M, k_U_ref, K_ref #calculated system parameters
+        return r_E, r_M, k_U_ref, K_ref
     else:
         raise Exception('Either ineligible model provided or mismatch(es) in length(s) of array(s) or tensor(s) corresponding to varying system parameters, constant system parameters, or initial conditions C_t0. "SCON" and "SAWB" only for now.')
 
