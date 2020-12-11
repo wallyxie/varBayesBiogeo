@@ -31,15 +31,37 @@ def scon_pool_init_meta(I_S, I_D, varying_system_parameters, constant_system_par
             S_0 = C_t0[0]
             D_0 = C_t0[1]
             M_0 = C_t0[2]
-            #Solve for calculated parameter values to be plugged into equation solving function.
+            #Solve for calculated parameter values to be plugged into equation solving function. 'Reference values' being solved for correspond to parameter values at reference temperature of 283.15 K, which equates to 50 F.
             k_M_ref = u_M * D_0 / M_0
             k_S_ref = (I_S + D_0 * (a_DS * k_D_ref + u_M * a_M * a_MSC)) / S_0
             k_D_ref = (-I_D - (a_SD * I_S) + (D_0 * u_M) - (a_M * D_0 * u_M) + (a_M * a_MSC * D_0 * u_M) - (a_M * a_MSC * a_SD * D_0 * u_M)) / (D_0 * (-1 + a_DS * a_SD))
-        return k_S_ref, k_D_ref, k_M_ref #calculated system parameters
+        #Return calculated system parameter values
+        return k_S_ref, k_D_ref, k_M_ref
     elif SDE_system == 'SAWB':
         print('Checking to ensure expected number of varying system parameters (9), previously set system parameters (x), and pre-warming pool densities (4) for model SAWB are present.')
         if len(varying_system_parameters) == 9 and len(constant_system_parameters) == 1 and len(C_t0) == 4:
-            #solve for calculated parameter values here
+            #Unpack varying system parameters.
+            V_ref = varying_system_parameters[0]
+            V_U_ref = varying_system_parameters[1]
+            Ea_V = varying_system_parameters[2]
+            Ea_VU = varying_system_parameters[3]
+            Ea_K = varying_system_parameters[4]
+            Ea_KU = varying_system_parameters[5]
+            a_MSA = varying_system_parameters[6]
+            u_Q_ref = varying_system_parameters[7] #former E_C_ref
+            Q = varying_system_paramters[8] #formerly m_t. Not involved in solving for calculated parameter values.
+            #Unpack constant system parameters
+            r_L = constant_system_paramters[0]
+            #Unpack chosen pre-warming steady state.
+            S_0 = C_t0[0]
+            D_0 = C_t0[1]
+            M_0 = C_t0[2]
+            E_0 = C_t0[3]
+            #Solve for calculated parameter values to be plugged into equation solving function. 'Reference values' being solved for correspond to parameter values at reference temperature of 283.15 K, which equates to 50 F.
+            r_E = r_L * E_0 / M_0
+            r_M = (-u_Q_ref * (I_S + I_D) + M_0 * r_E * (1 - u_Q_ref)) / (M_0 * (u_Q_ref - 1))
+            K_U_ref = -(D_0 * (r_M + r_E - u_Q_ref * V_U_ref)) / (r_M + r_E)
+            K_ref = -((S_0 * (-I_S * r_E * r_L + u_Q_ref * I_S * r_E * r_L - a_MSC * u_Q_ref * I_D * r_L * r_M - I_S * r_L * r_M + u_Q_ref * I_S * r_L * r_M - a_MSC * u_Q_ref * I_S * r_L * r_M + u_Q_ref * I_D * r_E * V_ref + u_Q_ref * I_S * r_E * V_ref)) / (r_L * (-I_S * r_E + u_Q_ref * I_S * r_E - a_MSC * u_Q_ref * I_D * r_M - I_S * r_M + u_Q_ref * I_S * r_M - a_MSC * u_Q_ref * I_S * r_M)))
         return r_E, r_M, k_U_ref, K_ref #calculated system parameters
     else:
         raise Exception('Either ineligible model provided or mismatch(es) in length(s) of array(s) or tensor(s) corresponding to varying system parameters, constant system parameters, or initial conditions C_t0. "SCON" and "SAWB" only for now.')

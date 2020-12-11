@@ -16,7 +16,7 @@ def arrhenius_temp_dep(parameter, temp, Ea, temp_ref):
 def linear_temp_dep(parameter, temp, Q, temp_ref):
     '''
     For a parameter with linear temperature dependence, returns the transformed parameter value.
-    Q is the slope of the temperature dependence.
+    Q is the slope of the temperature dependence and is a varying parameter.
     Temperatures are in K.
     '''
     modified_parameter = parameter - Q * (temp - temp_ref)
