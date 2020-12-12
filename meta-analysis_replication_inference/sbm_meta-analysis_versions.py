@@ -1,4 +1,4 @@
-import torch
+import torch as tc
 import numpy as np
 
 ##############################################
@@ -49,9 +49,9 @@ def scon_pool_init_meta(I_S, I_D, varying_system_parameters, constant_system_par
             Ea_KU = varying_system_parameters[5]
             a_MSA = varying_system_parameters[6]
             u_Q_ref = varying_system_parameters[7] #former E_C_ref
-            Q = varying_system_paramters[8] #formerly m_t. Not involved in solving for calculated parameter values.
+            Q = varying_system_parameters[8] #formerly m_t. Not involved in solving for calculated parameter values.
             #Unpack constant system parameters
-            r_L = constant_system_paramters[0]
+            r_L = constant_system_parameters[0]
             #Unpack chosen pre-warming steady state.
             S_0 = C_t0[0]
             D_0 = C_t0[1]
@@ -67,4 +67,5 @@ def scon_pool_init_meta(I_S, I_D, varying_system_parameters, constant_system_par
         raise Exception('Either ineligible model provided or mismatch(es) in length(s) of array(s) or tensor(s) corresponding to varying system parameters, constant system parameters, or initial conditions C_t0. "SCON" and "SAWB" only for now.')
 
 def alpha_scon():
+    #IN PROGRESS
     return

@@ -1,4 +1,4 @@
-import torch
+import torch as tc
 import numpy as np
 
 ##############################################
@@ -32,9 +32,9 @@ def litter_input_vector(I_S, I_D, SDE_system):
     SDE_system = upper(SDE_system)
     if SDE_system == 'SCON':
         state_var = 3
-        return li = torch.reshape(torch.FloatTensor([I_S, I_D, 0]), [state_var, 1])
+        return li = tc.reshape(tc.FloatTensor([I_S, I_D, 0]), [state_var, 1])
     elif SDE_system == 'SAWB':
         state_var = 4
-        return li = torch.reshape(torch.FloatTensor[I_S, I_D, 0, 0], [state_var, 1])
+        return li = tc.reshape(tc.FloatTensor[I_S, I_D, 0, 0], [state_var, 1])
     else:
         raise Exception('No eligible model provided. "SCON" and "SAWB" only for now.')
