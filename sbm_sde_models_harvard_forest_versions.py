@@ -19,10 +19,12 @@ def litter_sawb(I_S, I_D):
     litter_vector = tc.reshape(tc.FloatTensor([I_S, I_D, 0, 0]), [4, 1])
     return litter_vector
 
-def alpha_scon():
+def alpha_scon(c_vector, params):
     '''
-    Returns SCON system drift vector.
+    Returns SCON system drift vector for approximate p(x).
+    c_vector[0] is expected to be SOC, c_vector[1] is expected to be DOC, and c_vector[2] is expected to be SOC.
     '''
+
     #IN PROGRESS
     return
 
