@@ -22,11 +22,15 @@ def litter_sawb(I_S, I_D):
 def alpha_scon(c_vector, params):
     '''
     Returns SCON system drift vector for approximate p(x).
-    c_vector[0] is expected to be SOC, c_vector[1] is expected to be DOC, and c_vector[2] is expected to be SOC.
+    c_vector[0] is expected to be SOC, c_vector[1] is expected to be DOC, and c_vector[2] is expected to be MBC.
     '''
-
+    c_vector = soc, doc, mbc
+    soc = 
+    doc = 
+    mbc = 
+    c_vector = 
+    return c_vector
     #IN PROGRESS
-    return
 
 def beta_scon():
     '''
